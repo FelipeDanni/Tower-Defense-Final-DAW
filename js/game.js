@@ -1,17 +1,20 @@
 "use strict";
 
-// Variables globales del juego
+/* --- DECLARACIÓN DE VARIABLES --- */
 var contenedorTablero;
 var modalTorre;
 var btnComprar;
 var btnCancelar;
 var hudOro;
+var hudVidas;
 
-// Estados del juego
 var oroJugador = 100;
-var celdaSeleccionada = null; // Guardamos en memoria qué cuadradito se tocó
+var vidasJugador = 10;
+var celdaSeleccionada = null;
+var loopJuego = null;
+var enemigos = [];
 
-// Estructura de datos: Matriz del mapa (0 = Terreno, 1 = Camino, 2 = Slot Torre)
+/* --- MATRIZ DEL MAPA (0: Terreno, 1: Camino, 2: Slot Torre) --- */
 var mapaNivel1 = [
     [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
     [0, 2, 1, 2, 0, 0, 2, 0, 0, 0],
@@ -21,22 +24,33 @@ var mapaNivel1 = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
+/* --- RUTA DE COORDENADAS [fila, columna] --- */
+var caminoCoordenadas = [
+    [0, 2], [1, 2], [2, 2], [2, 3], [2, 4], 
+    [2, 5], [2, 6], [3, 6], [4, 6], [4, 7], 
+    [4, 8], [4, 9]
+];
+
+/* --- INICIALIZACIÓN --- */
 function inicializarJuego() {
     contenedorTablero = document.getElementById("tablero-juego");
     modalTorre = document.getElementById("modal-torre");
     btnComprar = document.getElementById("btn-comprar");
     btnCancelar = document.getElementById("btn-cancelar");
     hudOro = document.getElementById("hud-oro");
+    hudVidas = document.getElementById("hud-vidas");
 
-    // Asignar eventos a los botones del modal
     btnCancelar.addEventListener("click", cerrarModal);
     btnComprar.addEventListener("click", comprarTorre);
 
     dibujarMapa();
+    
+    spawnEnemigo();
+    loopJuego = setInterval(actualizarJuego, 800); // Game Loop cada 800ms
 }
 
+/* --- RENDERIZADO DEL DOM --- */
 function dibujarMapa() {
-    // Limpiamos el contenedor antes de dibujar
     contenedorTablero.innerHTML = ""; 
 
     for (var i = 0; i < mapaNivel1.length; i++) {
@@ -47,51 +61,101 @@ function dibujarMapa() {
             var celdaDiv = document.createElement("div"); 
             
             celdaDiv.classList.add("celda");
+            celdaDiv.setAttribute("id", "celda-" + i + "-" + j); // ID dinámico vital para el movimiento
 
-            // Asignar clase según el número de la matriz
             if (celdaValor === 0) {
                 celdaDiv.classList.add("terreno");
             } else if (celdaValor === 1) {
                 celdaDiv.classList.add("camino");
             } else if (celdaValor === 2) {
                 celdaDiv.classList.add("slot-torre");
-                // Evento click solo a los lugares construibles
                 celdaDiv.addEventListener("click", clickSlotTorre);
             }
 
-            // Inyectamos la celda en el HTML
             contenedorTablero.appendChild(celdaDiv);
         }
     }
 }
 
+/* --- LÓGICA DE ENEMIGOS --- */
+function spawnEnemigo() {
+    enemigos.push({
+        pasoActual: 0,
+        vida: 100
+    });
+}
+
+function actualizarJuego() {
+    // Si las vidas llegan a 0, detenemos el Game Loop para evitar errores
+    if (vidasJugador <= 0) {
+        clearInterval(loopJuego);
+        // Aquí podrías disparar un modal de Game Over (no alert)
+        return; 
+    }
+    moverEnemigos();
+}
+
+function moverEnemigos() {
+    var enemigosPrevios = document.querySelectorAll(".enemigo");
+    
+    // Limpieza manual del DOM (Evitamos fallos de duplicación)
+    for (var k = 0; k < enemigosPrevios.length; k++) {
+        enemigosPrevios[k].parentNode.removeChild(enemigosPrevios[k]);
+    }
+
+    // Actualización de posición de cada enemigo
+    for (var i = 0; i < enemigos.length; i++) {
+        var enemigo = enemigos[i];
+        
+        if (enemigo.pasoActual < caminoCoordenadas.length) {
+            var coord = caminoCoordenadas[enemigo.pasoActual];
+            var celdaActual = document.getElementById("celda-" + coord[0] + "-" + coord[1]);
+
+            if (celdaActual !== null) {
+                var divEnemigo = document.createElement("div");
+                divEnemigo.classList.add("enemigo");
+                celdaActual.appendChild(divEnemigo);
+            }
+
+            enemigo.pasoActual = enemigo.pasoActual + 1;
+        } else {
+            // El enemigo superó la defensa: actualización dinámica de estado
+            vidasJugador = vidasJugador - 1;
+            hudVidas.textContent = vidasJugador;
+            
+            enemigos.splice(i, 1);
+            i = i - 1;
+        }
+    }
+
+    // Probabilidad de aparición de nuevos enemigos
+    if (Math.random() < 0.35 && vidasJugador > 0) {
+        spawnEnemigo();
+    }
+}
+
+/* --- LÓGICA DEL MODAL --- */
 function clickSlotTorre(evento) {
-    // evento.target nos dice exactamente a qué cuadrado le hicimos clic
     celdaSeleccionada = evento.target;
     modalTorre.classList.remove("oculto");
 }
 
 function cerrarModal() {
     modalTorre.classList.add("oculto");
-    celdaSeleccionada = null; // Limpiamos la memoria
+    celdaSeleccionada = null;
 }
 
 function comprarTorre() {
     if (oroJugador >= 50 && celdaSeleccionada !== null) {
-        // Restar oro y actualizar el HUD en el DOM
         oroJugador = oroJugador - 50;
         hudOro.textContent = oroJugador;
         
-        // Cambiar clases para que se vea como una torre construida
         celdaSeleccionada.classList.remove("slot-torre");
         celdaSeleccionada.classList.add("torre-construida");
-        
-        // Evitamos que se pueda construir otra torre encima
         celdaSeleccionada.removeEventListener("click", clickSlotTorre);
         
         cerrarModal();
     } else {
-        // Si no tiene oro, por ahora cerramos el modal igual
         cerrarModal();
     }
 }

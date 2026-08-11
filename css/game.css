@@ -36,3 +36,27 @@
     background-color: #8e44ad; /* Violeta para distinguir la torre construida */
     border: 2px solid #2c3e50;
 }
+/* Preparación de la celda para centrar al enemigo (sin usar Grid ni Float) */
+.celda {
+    /* Mantener las propiedades anteriores */
+    width: 10%; 
+    height: 16.666%; 
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    
+    /* Agregamos position relative para el enemigo */
+    position: relative; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo del enemigo renderizado dinámicamente */
+.enemigo {
+    width: 60%;
+    height: 60%;
+    background-color: #c0392b; /* Rojo para el enemigo */
+    border-radius: 50%;
+    border: 2px solid #7f8c8d;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
