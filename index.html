@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower Defense - Final DAW</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+    
+    <div id="contenedor-juego">
+        <!-- Pantalla de Menú Inicial -->
+        <div id="pantalla-menu">
+            <h1>Defensa de la Torre</h1>
+            <p>Ingresá tu nombre de comandante:</p>
+            <input type="text" id="input-nombre" placeholder="Mínimo 3 letras...">
+            <button id="btn-iniciar">Iniciar Partida</button>
+            <p id="mensaje-error" class="oculto"></p>
+        </div>
+
+        <!-- Pantalla del Juego (Oculta por defecto) -->
+        <div id="pantalla-partida" class="oculto">
+            <header id="hud-juego">
+                <p>Comandante: <span id="hud-nombre"></span></p>
+                <p>Vidas: <span id="hud-vidas">10</span></p>
+                <p>Oro: <span id="hud-oro">100</span></p>
+                <p>Puntos: <span id="hud-puntos">0</span></p>
+            </header>
+            
+            <main id="tablero-juego">
+                <!-- Acá generaremos la grilla dinámicamente con JS -->
+            </main>
+
+            <!-- Modal para comprar torre (Oculto por defecto) -->
+            <div id="modal-torre" class="oculto">
+                <div class="modal-contenido">
+                    <h2>Construir Torre</h2>
+                    <p>Costo: 50 de Oro</p>
+                    <div class="modal-botones">
+                        <button id="btn-comprar">Comprar</button>
+                        <button id="btn-cancelar">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
