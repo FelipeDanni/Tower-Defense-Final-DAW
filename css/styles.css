@@ -184,3 +184,76 @@ body {
 .oculto {
     display: none !important;
 }
+
+/* --- ESTILOS DE LA PÁGINA DE CONTACTO --- */
+#pantalla-contacto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#pantalla-contacto h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #f1c40f;
+}
+
+#formulario-contacto {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+#formulario-contacto label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#formulario-contacto input,
+#formulario-contacto textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+}
+
+#btn-enviar {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+#btn-enviar:hover {
+    background-color: #2980b9;
+}
+
+#mensaje-error-contacto {
+    color: #e74c3c;
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.enlace-volver {
+    margin-top: 25px;
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 16px;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.enlace-volver:hover {
+    color: #f1c40f;
+    border-bottom: 1px solid #f1c40f;
+}
