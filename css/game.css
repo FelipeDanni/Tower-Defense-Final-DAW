@@ -1,62 +1,68 @@
 #tablero-juego {
     display: flex;
-    flex-wrap: wrap; /* Esto hace que al llegar al 100% de ancho, bajen de línea */
+    flex-wrap: wrap;
     width: 100%;
-    flex-grow: 1; 
+    height: 420px;
+    border: 3px solid #2c3e50;
+    box-sizing: border-box;
 }
 
 .celda {
-    width: 10%; /* 10 columnas por fila (10 * 10% = 100%) */
-    height: 16.666%; /* 6 filas (100% / 6) */
+    width: 10%;
+    height: 16.666%;
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-/* Colores de nuestro mapa */
-.terreno {
-    background-color: #27ae60; /* Verde oscuro (pasto) */
-}
-
-.camino {
-    background-color: #e67e22; /* Naranja/marrón (tierra) */
-}
-
-.slot-torre {
-    background-color: #f1c40f; /* Amarillo para lugares de construcción */
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.slot-torre:hover {
-    background-color: #f39c12; /* Cambia al pasar el mouse */
-    border: 2px solid white;
-}
-
-.torre-construida {
-    background-color: #8e44ad; /* Violeta para distinguir la torre construida */
-    border: 2px solid #2c3e50;
-}
-/* Preparación de la celda para centrar al enemigo (sin usar Grid ni Float) */
-.celda {
-    /* Mantener las propiedades anteriores */
-    width: 10%; 
-    height: 16.666%; 
-    box-sizing: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    
-    /* Agregamos position relative para el enemigo */
-    position: relative; 
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Estilo del enemigo renderizado dinámicamente */
+.terreno {
+    background-color: #27ae60;
+}
+
+.camino {
+    background-color: #d35400;
+}
+
+.slot-torre {
+    background-color: #f1c40f;
+    cursor: pointer;
+}
+
+.slot-torre:hover {
+    background-color: #f39c12;
+}
+
+.torre-construida {
+    background-color: #8e44ad;
+    border: 2px solid #2c3e50;
+}
+
+.torre-pesada {
+    background-color: #16a085;
+    border: 2px solid #1abc9c;
+}
+
 .enemigo {
     width: 60%;
     height: 60%;
-    background-color: #c0392b; /* Rojo para el enemigo */
+    background-color: #c0392b;
     border-radius: 50%;
     border: 2px solid #7f8c8d;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.enemigo.enemigo-tanque {
+    background-color: #2980b9;
+    border-radius: 20%;
+    border: 2px solid #1f618d;
+    box-shadow: 0 0 10px #2980b9;
+}
+
+@media (max-width: 600px) {
+    #tablero-juego {
+        height: 280px;
+    }
 }

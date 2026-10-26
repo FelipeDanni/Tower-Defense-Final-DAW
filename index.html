@@ -9,20 +9,23 @@
     <link rel="stylesheet" href="css/game.css">
 </head>
 <body>
-    
     <div id="contenedor-juego">
-        <!-- Pantalla de Menú Inicial -->
         <div id="pantalla-menu">
             <h1>Defensa de la Torre</h1>
+            <p id="texto-record" class="texto-record">Récord Histórico: 0</p>
             <p>Ingresá tu nombre de comandante:</p>
             <input type="text" id="input-nombre" placeholder="Mínimo 3 letras...">
             <button id="btn-iniciar">Iniciar Partida</button>
+            <button id="btn-historial" class="btn-secundario margen-superior-10">Ver Historial</button>
+            <div id="modal-historial" class="caja-historial oculto">
+                <h2 class="titulo-historial">Últimas 5 Partidas</h2>
+                <ul id="lista-historial" class="lista-historial"></ul>
+                <button id="btn-cerrar-historial" class="btn-secundario btn-ancho-completo">Cerrar Historial</button>
+            </div>
             <p id="mensaje-error" class="oculto"></p>
-            
-            <a href="contacto.html" class="enlace-volver" style="margin-top: 30px;">Enviar un reporte (Contacto)</a>
+            <a href="contacto.html" class="enlace-volver margen-superior-30">Enviar un reporte (Contacto)</a>
+            <a href="https://github.com/FelipeDanni/Tower-Defense-Final-DAW" target="_blank" class="enlace-volver margen-superior-15">Ver repositorio en GitHub</a>
         </div>
-
-        <!-- Pantalla del Juego -->
         <div id="pantalla-partida" class="oculto">
             <header id="hud-juego">
                 <p>Comandante: <span id="hud-nombre"></span></p>
@@ -30,26 +33,19 @@
                 <p>Oro: <span id="hud-oro">100</span></p>
                 <p>Puntos: <span id="hud-puntos">0</span></p>
             </header>
-            
-            <main id="tablero-juego">
-                <!-- Grilla dinámica -->
-            </main>
-
-            <!-- Modal para comprar torre -->
+            <main id="tablero-juego"></main>
             <div id="modal-torre" class="oculto">
                 <div class="modal-contenido">
                     <h2>Construir Torre</h2>
-                    <div class="flex-columna" style="margin: 15px 0;">
-                        <button id="btn-comprar-basica" class="btn-comprar" style="background-color: #27ae60; padding: 10px; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Básica (Costo: 50 | Daño: 25)</button>
-                        <button id="btn-comprar-pesada" class="oculto" style="background-color: #8e44ad; padding: 10px; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Pesada (Costo: 100 | Daño: 60)</button>
+                    <div class="flex-columna margen-vertical-15">
+                        <button id="btn-comprar-basica" class="btn-comprar btn-torre-basica">Básica (Costo: 50 | Daño: 25)</button>
+                        <button id="btn-comprar-pesada" class="btn-torre-pesada oculto">Pesada (Costo: 100 | Daño: 60)</button>
                     </div>
                     <div class="modal-botones">
                         <button id="btn-cancelar" class="btn-secundario">Cancelar</button>
                     </div>
                 </div>
             </div>
-
-            <!-- Modal de Game Over -->
             <div id="modal-game-over" class="oculto">
                 <div class="modal-contenido">
                     <h2>¡Has sido derrotado!</h2>
@@ -61,15 +57,13 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Modal de Victoria y Transición de Nivel -->
             <div id="modal-victoria" class="oculto">
                 <div class="modal-contenido">
                     <h2 id="titulo-victoria">¡Nivel Completado!</h2>
                     <p>Defendiste la base con éxito.</p>
                     <p>Puntuación: <span id="puntaje-victoria">0</span></p>
                     <div class="modal-botones flex-columna">
-                        <button id="btn-siguiente-nivel" class="oculto" style="background-color: #27ae60; padding: 12px 20px; font-size: 18px; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Pasar al Nivel 2</button>
+                        <button id="btn-siguiente-nivel" class="btn-nivel-2 oculto">Pasar al Nivel 2</button>
                         <button id="btn-reiniciar-victoria">Jugar de nuevo</button>
                         <button id="btn-volver-menu-victoria" class="btn-secundario">Volver al Menú</button>
                     </div>
@@ -77,12 +71,9 @@
             </div>
         </div>
     </div>
-
-    <!-- Etiqueta de audio oculta con loop -->
     <audio id="audio-fondo" loop>
         <source src="assets/audio/Coffee_Stained_Strategy.mp3" type="audio/mpeg">
     </audio>
-
     <script src="js/main.js"></script>
     <script src="js/game.js"></script>
 </body>
