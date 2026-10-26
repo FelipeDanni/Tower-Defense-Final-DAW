@@ -132,7 +132,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(192, 57, 43, 0.8); /* Fondo rojizo translúcido */
+    background-color: rgba(192, 57, 43, 0.8);
     justify-content: center;
     align-items: center;
     z-index: 20;
@@ -143,7 +143,7 @@ body {
 }
 
 #btn-reiniciar {
-    background-color: #3498db; /* Azul para el botón de reinicio */
+    background-color: #3498db;
     padding: 12px 20px;
     font-size: 18px;
     width: 100%;
@@ -157,7 +157,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(39, 174, 96, 0.8); /* Fondo verde translúcido */
+    background-color: rgba(39, 174, 96, 0.8);
     justify-content: center;
     align-items: center;
     z-index: 20;
@@ -168,7 +168,7 @@ body {
 }
 
 #btn-reiniciar-victoria {
-    background-color: #f1c40f; /* Botón amarillo */
+    background-color: #f1c40f;
     padding: 12px 20px;
     font-size: 18px;
     width: 100%;
@@ -256,4 +256,54 @@ body {
 .enlace-volver:hover {
     color: #f1c40f;
     border-bottom: 1px solid #f1c40f;
+}
+
+/* --- ESTILOS PARA LOS BOTONES DE VOLVER AL MENÚ --- */
+.flex-columna {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-secundario {
+    background-color: #7f8c8d;
+    padding: 12px 20px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.btn-secundario:hover {
+    background-color: #95a5a6;
+}
+
+/* --- NUEVA: Torre Pesada (Nivel 2) --- */
+/* --- NUEVA: Torre Pesada (Nivel 2) --- */
+.torre-pesada {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2ecc71; /* Fondo verde del terreno */
+}
+
+.torre-pesada::after {
+    content: "";
+    display: block;
+    background-color: #8e44ad; 
+    border-radius: 50%;
+    width: 80%;
+    height: 80%;
+    border: 3px solid #732d91;
+    box-shadow: 0 0 10px #8e44ad;
+}
+/* --- NUEVO: Enemigo Tanque (Nivel 2) --- */
+.enemigo.enemigo-tanque {
+    background-color: #2980b9; 
+    border-radius: 20%; /* Forma más cuadrada para que parezca pesado */
+    box-shadow: 0 0 10px #2980b9;
 }

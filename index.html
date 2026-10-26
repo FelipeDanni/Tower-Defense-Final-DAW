@@ -19,11 +19,10 @@
             <button id="btn-iniciar">Iniciar Partida</button>
             <p id="mensaje-error" class="oculto"></p>
             
-            <!-- ENLACE A LA PÁGINA DE CONTACTO -->
             <a href="contacto.html" class="enlace-volver" style="margin-top: 30px;">Enviar un reporte (Contacto)</a>
         </div>
 
-        <!-- Pantalla del Juego (Oculta por defecto) -->
+        <!-- Pantalla del Juego -->
         <div id="pantalla-partida" class="oculto">
             <header id="hud-juego">
                 <p>Comandante: <span id="hud-nombre"></span></p>
@@ -33,46 +32,56 @@
             </header>
             
             <main id="tablero-juego">
-                <!-- Acá generaremos la grilla dinámicamente con JS -->
+                <!-- Grilla dinámica -->
             </main>
 
-            <!-- Modal para comprar torre (Oculto por defecto) -->
+            <!-- Modal para comprar torre -->
             <div id="modal-torre" class="oculto">
                 <div class="modal-contenido">
                     <h2>Construir Torre</h2>
-                    <p>Costo: 50 de Oro</p>
+                    <div class="flex-columna" style="margin: 15px 0;">
+                        <button id="btn-comprar-basica" class="btn-comprar" style="background-color: #27ae60; padding: 10px; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Básica (Costo: 50 | Daño: 25)</button>
+                        <button id="btn-comprar-pesada" class="oculto" style="background-color: #8e44ad; padding: 10px; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">Pesada (Costo: 100 | Daño: 60)</button>
+                    </div>
                     <div class="modal-botones">
-                        <button id="btn-comprar">Comprar</button>
-                        <button id="btn-cancelar">Cancelar</button>
+                        <button id="btn-cancelar" class="btn-secundario">Cancelar</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Modal de Game Over (Oculto por defecto) -->
+            <!-- Modal de Game Over -->
             <div id="modal-game-over" class="oculto">
                 <div class="modal-contenido">
                     <h2>¡Has sido derrotado!</h2>
                     <p>Los enemigos destruyeron tu base.</p>
                     <p>Puntuación final: <span id="puntaje-final">0</span></p>
-                    <div class="modal-botones">
+                    <div class="modal-botones flex-columna">
                         <button id="btn-reiniciar">Volver a jugar</button>
+                        <button id="btn-volver-menu-derrota" class="btn-secundario">Volver al Menú</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Modal de Victoria (Oculto por defecto) -->
+            <!-- Modal de Victoria y Transición de Nivel -->
             <div id="modal-victoria" class="oculto">
                 <div class="modal-contenido">
-                    <h2>¡Misión Cumplida!</h2>
+                    <h2 id="titulo-victoria">¡Nivel Completado!</h2>
                     <p>Defendiste la base con éxito.</p>
-                    <p>Puntuación final: <span id="puntaje-victoria">0</span></p>
-                    <div class="modal-botones">
+                    <p>Puntuación: <span id="puntaje-victoria">0</span></p>
+                    <div class="modal-botones flex-columna">
+                        <button id="btn-siguiente-nivel" class="oculto" style="background-color: #27ae60; padding: 12px 20px; font-size: 18px; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Pasar al Nivel 2</button>
                         <button id="btn-reiniciar-victoria">Jugar de nuevo</button>
+                        <button id="btn-volver-menu-victoria" class="btn-secundario">Volver al Menú</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Etiqueta de audio oculta con loop -->
+    <audio id="audio-fondo" loop>
+        <source src="assets/audio/Coffee_Stained_Strategy.mp3" type="audio/mpeg">
+    </audio>
 
     <script src="js/main.js"></script>
     <script src="js/game.js"></script>
